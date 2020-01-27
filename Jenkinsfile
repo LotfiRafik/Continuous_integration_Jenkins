@@ -12,5 +12,11 @@ pipeline {
       }
     }
 
+    stage('Mail Notification') {
+      steps {
+        mail(subject: 'TP8', body: 'gradle build completed', to: 'gl_bouchafa@esi.dz')
+      }
+    }
+
   }
 }
