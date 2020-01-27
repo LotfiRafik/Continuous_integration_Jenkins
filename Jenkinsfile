@@ -30,7 +30,7 @@ pipeline {
 
     stage('Code Analysis') {
       steps {
-        withSonarQubeEnv('SonarQube'){
+        withSonarQubeEnv('sonar'){
           sh "/Desktop/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
         }
         waitForQualityGate true
