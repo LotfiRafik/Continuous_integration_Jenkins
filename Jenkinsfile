@@ -16,7 +16,7 @@ pipeline {
       }
       post 
       {
-        always { script { message = "Build compeleted" } }
+        always { script { message = "Binome : Bouchafa Lotfi , Bouraba Nazih , \n Build compeleted" } }
         failure { script { message += "Build failed" } }
         success { script { message += "Build sucess" } }
         }
@@ -24,7 +24,7 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz')
+        mail(subject: 'TP8', body: "${message}", to: 'h_mokeddem@esi.dz',cc:'gl_bouchafa@esi.dz')
       }
     }
 
