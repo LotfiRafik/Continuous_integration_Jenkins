@@ -16,9 +16,9 @@ pipeline {
       }
       post 
       {
-        always { echo "Build stage complete" }
-        failure { script { message = "Build failed" } }
-        success { script { message = "Build sucess" } }
+        always { script { message = "Build compeleted" } }
+        failure { script { message += "Build failed" } }
+        success { script { message += "Build sucess" } }
         }
     }
 
