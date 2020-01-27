@@ -1,11 +1,30 @@
-
-
-
-def message =""
 pipeline {
   agent any
   stages {
     stage('Build') {
+      post {
+        always {
+          script {
+            message = "Binome : Bouchafa Lotfi , Bouraba Nazih , \n Build compeleted"
+          }
+
+        }
+
+        failure {
+          script {
+            message += "Build failed"
+          }
+
+        }
+
+        success {
+          script {
+            message += "Build sucess"
+          }
+
+        }
+
+      }
       steps {
         sh 'gradle build'
         sh 'gradle javadoc'
@@ -14,12 +33,6 @@ pipeline {
         archiveArtifacts 'build/docs/javadoc/*.*'
         archiveArtifacts 'build/test-results/test/*.xml'
       }
-      post 
-      {
-        always { script { message = "Binome : Bouchafa Lotfi , Bouraba Nazih , \n Build compeleted" } }
-        failure { script { message += "Build failed" } }
-        success { script { message += "Build sucess" } }
-        }
     }
 
     stage('Mail Notification') {
@@ -29,11 +42,23 @@ pipeline {
     }
 
     stage('Code Analysis') {
-      steps {
-        withSonarQubeEnv('sonar'){
-          sh "/home/rafix/Desktop/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
+      parallel {
+        stage('Code Analysis') {
+          steps {
+            withSonarQubeEnv('sonar') {
+              sh '/home/rafix/Desktop/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner'
+            }
+
+            waitForQualityGate true
+          }
         }
-        waitForQualityGate true
+
+        stage('Test Reporting') {
+          steps {
+            jacoco()
+          }
+        }
+
       }
     }
 
