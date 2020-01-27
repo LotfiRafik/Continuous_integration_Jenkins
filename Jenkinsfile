@@ -18,5 +18,11 @@ pipeline {
       }
     }
 
+    stage('Code Analysis') {
+      steps {
+        waitForQualityGate true
+      }
+    }
+
   }
 }
