@@ -1,6 +1,7 @@
 
 
 
+def message =""
 pipeline {
   agent any
   stages {
@@ -13,11 +14,17 @@ pipeline {
         archiveArtifacts 'build/docs/javadoc/*.*'
         archiveArtifacts 'build/test-results/test/*.xml'
       }
+      post 
+      {
+        always { echo "Build stage complete" }
+        failure { script { message = "Build failed" } }
+        success { script { message = "Build sucess" } }
+        }
     }
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'TP8', body: 'gradle build completed', to: 'gl_bouchafa@esi.dz')
+        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz')
       }
     }
 
