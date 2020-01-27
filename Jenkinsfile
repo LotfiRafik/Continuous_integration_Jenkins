@@ -24,14 +24,14 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'TP8', body: "${message}", to: 'h_mokeddem@esi.dz',cc:'gl_bouchafa@esi.dz')
+        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz')
       }
     }
 
     stage('Code Analysis') {
       steps {
         withSonarQubeEnv('sonar'){
-          sh "/Desktop/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
+          sh "/home/rafix/Desktop/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner"
         }
         waitForQualityGate true
       }
