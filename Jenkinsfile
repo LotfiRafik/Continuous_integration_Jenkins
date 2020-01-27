@@ -62,5 +62,11 @@ pipeline {
       }
     }
 
+    stage('Deployment') {
+      steps {
+        sh 'gradle publish'
+      }
+    }
+
   }
 }
