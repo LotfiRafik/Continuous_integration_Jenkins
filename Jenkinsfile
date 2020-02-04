@@ -37,7 +37,7 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz')
+        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz' , cc:'gn_bouraba@esi.dz')
       }
     }
 
