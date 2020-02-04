@@ -68,5 +68,11 @@ pipeline {
       }
     }
 
+    stage('Slack Notification') {
+      steps {
+        slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'TREJHRA8Z/BT5SZUNJ3/5kR7yh20MxsyT6bjMmBye8v8', teamDomain: 'outils', channel: 'jenkins', message: 'Deployment maven TP8  Done')
+      }
+    }
+
   }
 }
