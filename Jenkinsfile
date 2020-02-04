@@ -46,7 +46,7 @@ pipeline {
         stage('Code Analysis') {
           steps {
             withSonarQubeEnv('sonar') {
-              sh '/home/rafix/Desktop/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner'
+              sh '/opt/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner'
             }
 
             waitForQualityGate true
