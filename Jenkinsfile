@@ -52,6 +52,7 @@ pipeline {
             waitForQualityGate true
           }
         }
+        
 
         stage('Test Reporting') {
           steps {
