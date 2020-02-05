@@ -37,7 +37,7 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz' , cc:'gn_bouraba@esi.dz')
+        mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz', cc: 'gn_bouraba@esi.dz')
       }
     }
 
@@ -55,26 +55,26 @@ pipeline {
 
         stage('Test Reporting') {
           steps {
-            jacoco()
+            jacoco(execPattern: 'build/jacoco/*.exec', exclusionPattern: '**/test/*.class')
           }
         }
 
       }
     }
-   
+
     stage('Deployment') {
-       when {
-            branch "master"
-    }
+      when {
+        branch 'master'
+      }
       steps {
         sh 'gradle publish'
       }
     }
 
     stage('Slack Notification') {
-       when {
-            branch "master"
-    }
+      when {
+        branch 'master'
+      }
       steps {
         slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'TREJHRA8Z/BT5SZUNJ3/5kR7yh20MxsyT6bjMmBye8v8', teamDomain: 'outils', channel: 'jenkins', message: 'Deployment maven TP8  Done')
       }
