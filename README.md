@@ -1,4 +1,6 @@
 # Continuous integration of a Java API with Jenkins  
+![alt text](https://github.com/LotfiRafik/Continuous_integration_Jenkins/blob/master/jenkins.png)
+
 ## 1 Integration of version 1.0 :   
 The automatic launch of the integration process must be done after each push in the GitHub repository.       
 ### 1.1 The phases of the pipeline:    
