@@ -35,30 +35,9 @@ pipeline {
       }
     }
 
-    stage('Mail Notification') {
+    stage('Unit Testing') {
       steps {
         mail(subject: 'TP8', body: "${message}", to: 'gl_bouchafa@esi.dz', cc: 'gn_bouraba@esi.dz')
-      }
-    }
-
-    stage('Code Analysis') {
-      parallel {
-        stage('Code Analysis') {
-          steps {
-            withSonarQubeEnv('sonar') {
-              sh '/opt/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner'
-            }
-
-            waitForQualityGate true
-          }
-        }
-
-        stage('Test Reporting') {
-          steps {
-            jacoco(execPattern: 'build/jacoco/*.exec', exclusionPattern: '**/test/*.class')
-          }
-        }
-
       }
     }
 
@@ -68,15 +47,6 @@ pipeline {
       }
       steps {
         sh 'gradle publish'
-      }
-    }
-
-    stage('Slack Notification') {
-      when {
-        branch 'master'
-      }
-      steps {
-        slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'TREJHRA8Z/BT5SZUNJ3/5kR7yh20MxsyT6bjMmBye8v8', teamDomain: 'outils', channel: 'jenkins', message: 'Deployment maven TP8  Done')
       }
     }
 
